@@ -1,13 +1,14 @@
 import { Provider } from 'react-redux';
-import { store } from './src/app/store';
-import { View, Text } from "react-native";
+import {persistor, store} from './src/app/store';
+import {PersistGate} from "redux-persist/integration/react";
+import AppNavigator from "@/src/navigation/AppNavigator";
 
 export default function App() {
     return (
         <Provider store={store}>
-            <View >
-                <Text>RecetteBox</Text>
-            </View>
+            <PersistGate persistor={persistor}>
+                <AppNavigator />
+            </PersistGate>
         </Provider>
     );
 }
