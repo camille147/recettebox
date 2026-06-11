@@ -1,11 +1,11 @@
 import {Text, View, StyleSheet, FlatList} from "react-native";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "@/src/app/store";
-import {RootStackParamList} from "@/src/navigation/AppNavigator";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootTabParamList} from "@/src/navigation/AppNavigator";
 import RecipeCard from "@/src/components/RecipeCard";
+import {BottomTabScreenProps} from "@react-navigation/bottom-tabs";
 
-type Props= NativeStackScreenProps<RootStackParamList, 'Favorites'>
+type Props =BottomTabScreenProps<RootTabParamList, 'FavoritesTab'>
 
 export default function FavoriteScreen({navigation} : Props) {
 
@@ -29,7 +29,10 @@ export default function FavoriteScreen({navigation} : Props) {
                 renderItem={({ item }) => (
                     <RecipeCard
                         meal={item}
-                        onPress={() => navigation.navigate('Detail', { idMeal: item.idMeal })}
+                        onPress={() => navigation.navigate('HomeTab', {
+                            screen: 'Detail',
+                            params: { idMeal: item.idMeal }
+                        })}
                     />
                 )}
             />
