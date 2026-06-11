@@ -1,6 +1,5 @@
 import {Text, TextInput, StyleSheet, FlatList, View} from "react-native";
-import {Meal} from "@/src/types/meal";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import RecipeCard from "@/src/components/RecipeCard";
 import {RootStackParamList} from "@/src/navigation/AppNavigator";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
@@ -13,8 +12,9 @@ export default function HomeScreen({navigation}: Props) {
 
     const [query, setQuery] = useState('')
 
+    const [debounceQuery, setDebounceQuery] = useDebounce(query, 500) //relance la recherche toutes les 500ms, évite de lancer la recherche àa chaue lette
 
-    const { data, error, isLoading } = useGetMealByNameQuery(query)
+    const { data, error, isLoading } = useGetMealByNameQuery(debounceQuery)
 
     if(isLoading) {
         return <Text>isLOadinf</Text>
