@@ -1,9 +1,66 @@
-import {Text, View} from "react-native";
+import {Text, TextInput, StyleSheet, FlatList, View} from "react-native";
+import {Meal} from "@/src/types/meal";
+import {useEffect, useState} from "react";
+import RecipeCard from "@/src/components/RecipeCard";
+import {RootStackParamList} from "@/src/navigation/AppNavigator";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {useGetMealByNameQuery} from '../../services/api'
+import { useDebounce } from "use-debounce";
 
-export default function HomeScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export default function HomeScreen({navigation}: Props) {
+
+    const [query, setQuery] = useState('')
+
+
+    const { data, error, isLoading } = useGetMealByNameQuery(query)
+
+    if(isLoading) {
+        return <Text>isLOadinf</Text>
+    }
+    if(error) {
+        return <Text> uen erreur est survenu </Text>
+    }
+
+    if (!data?.meals) {
+        return <Text> pas de recette trovéee</Text>
+    }
+
     return (
-        <View>
-            <Text>Home</Text>
-        </View>
+            <View style={styles.container}>
+                <TextInput
+                    style={styles.searchBar}
+                    placeholder="Rechercher une recette..."
+                    value={query}
+                    onChangeText={setQuery}
+                />
+                <FlatList
+                    data={data.meals}
+                    keyExtractor={(item) => item.idMeal}
+                    renderItem={({ item }) => (
+                        <RecipeCard
+                            meal={item}
+                            onPress={() => navigation.navigate('Detail', { idMeal: item.idMeal })}
+                        />
+                    )}
+                />
+            </View>
     )
 }
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f5f5f5',
+    },
+    searchBar: {
+        margin: 16,
+        padding: 12,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        fontSize: 15,
+        elevation: 2,
+    },
+});
