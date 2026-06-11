@@ -1,4 +1,4 @@
-import {Text, TextInput, StyleSheet, FlatList, View} from "react-native";
+import {Text, TextInput, StyleSheet, FlatList, View, TouchableOpacity} from "react-native";
 import {useState} from "react";
 import RecipeCard from "@/src/components/RecipeCard";
 import {RootStackParamList} from "@/src/navigation/AppNavigator";
@@ -31,6 +31,10 @@ export default function HomeScreen({navigation}: Props) {
                 value={query}
                 onChangeText={setQuery}
             />
+
+            <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
+                <Text style={{ fontSize: 24, marginRight: 16 }}>❤️</Text>
+            </TouchableOpacity>
 
             {data?.meals ?
                 <FlatList
