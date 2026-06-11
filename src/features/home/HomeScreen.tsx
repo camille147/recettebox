@@ -23,18 +23,16 @@ export default function HomeScreen({navigation}: Props) {
         return <Text> uen erreur est survenu </Text>
     }
 
-    if (!data?.meals) {
-        return <Text> pas de recette trovéee</Text>
-    }
-
     return (
-            <View style={styles.container}>
-                <TextInput
-                    style={styles.searchBar}
-                    placeholder="Rechercher une recette..."
-                    value={query}
-                    onChangeText={setQuery}
-                />
+        <View style={styles.container}>
+            <TextInput
+                style={styles.searchBar}
+                placeholder="Rechercher une recette..."
+                value={query}
+                onChangeText={setQuery}
+            />
+
+            {data?.meals ?
                 <FlatList
                     data={data.meals}
                     keyExtractor={(item) => item.idMeal}
@@ -45,7 +43,11 @@ export default function HomeScreen({navigation}: Props) {
                         />
                     )}
                 />
-            </View>
+                :
+                <Text>Aucune recette trouvée</Text>
+            }
+
+        </View>
     )
 }
 
