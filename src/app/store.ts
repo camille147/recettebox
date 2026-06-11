@@ -4,8 +4,13 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import {mealApi} from "@/src/services/api";
 
 
+import favoritesReducer from '../features/favorites/favoriteSlice';
+
+
 const rootReducer = combineReducers({
     [mealApi.reducerPath]: mealApi.reducer,
+    favorites: favoritesReducer,
+
 });
 const persisted = persistReducer(
     { key: 'root', storage: AsyncStorage, whitelist: ['favorites'], blacklist: [mealApi.reducerPath] }, //évite de sauvegarder al cache API

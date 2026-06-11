@@ -1,13 +1,19 @@
-import {Animated, Image, Text, View, StyleSheet, TouchableOpacity} from "react-native";
+import {Image, Text, View, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {RootStackParamList} from "@/src/navigation/AppNavigator";
 import {useGetMealByIdQuery} from "@/src/services/api";
 import {getIngredients} from "@/src/utils/getIngredients";
-import ScrollView = Animated.ScrollView;
+import {RootState} from "@/src/app/store";
+import {useSelector, useDispatch} from "react-redux";
+import {toggleFavorite} from "@/src/features/favorites/favoriteSlice";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
 export default function DetailsScreen({route} : Props) {
+
+    const favoriteItems = useSelector((state: RootState) => state.favorites.meal);
+    const dispatch = useDispatch();
+
 
     const {idMeal} = route.params
     const {data, isError, isLoading} = useGetMealByIdQuery(idMeal)
@@ -25,6 +31,7 @@ export default function DetailsScreen({route} : Props) {
 
     const meal = data.meals[0]
     const ingredients = getIngredients(meal)
+    const estFavori = favoriteItems.some((i) => i.idMeal === meal.idMeal)
 
     return (
         <ScrollView style={styles.container}>
@@ -43,6 +50,9 @@ export default function DetailsScreen({route} : Props) {
                     }
 
                 </View>
+                <TouchableOpacity onPress={() => dispatch(toggleFavorite(meal))}>
+                    <Text style={{ fontSize: 24 }}>{estFavori ? '❤️' : '🤍'}</Text>
+                </TouchableOpacity>
 
 
                 <Text style={styles.sectionTitle}>Ingrédients</Text>
