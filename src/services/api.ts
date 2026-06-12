@@ -22,4 +22,4 @@ export const mealApi = createApi({
 })
 
 
-export const { useGetMealByNameQuery, useGetMealByIdQuery, useGetAllCategoriesQuery, useGetRandomMealQuery } = mealApi
+export const { useGetMealByNameQuery, useGetMealByIdQuery, useGetAllCategoriesQuery, useLazyGetRandomMealQuery } = mealApi
