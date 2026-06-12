@@ -1,50 +1,59 @@
-# Welcome to your Expo app 👋
+# RecetteBox 🍽️
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Application mobile React Native permettant de rechercher des recettes, consulter leurs détails et gérer une liste de favoris persistée.
 
-## Get started
+## Stack technique
 
-1. Install dependencies
+- Expo (React Native)
+- React Navigation (Bottom Tabs + Native Stack)
+- Redux Toolkit + RTK Query (API TheMealDB)
+- redux-persist + AsyncStorage
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Lancement
 
 ```bash
-npm run reset-project
+# Installer les dépendances
+npm install
+
+# Lancer le projet
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Puis scanner le QR code avec Expo Go, ou appuyer sur `w` pour lancer la version web.
 
-## Learn more
+## Fonctionnalités réalisées 
 
-To learn more about developing your project with Expo, look at the following resources:
+- [x] Recherche de recettes via l'API
+- [x] Liste des résultats avec `FlatList` + `RecipeCard` réutilisable
+- [x] Écran détail (image, ingrédients, instructions)
+- [x] État global géré avec Redux Toolkit (`favoritesSlice`, `mealApi`)
+- [x] Favoris persistés avec `redux-persist` (AsyncStorage)
+- [x] Écran "Favoris" avec état vide
+- [x] Gestion des états loading / erreur / vide
+- [x] Navigation par onglets en bas (Accueil / Favoris)
+- [x] Lien vers la vidéo de la recette (YouTube)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Bonus réalisés 
 
-## Join the community
+- [x] TabNavigator en bas (Accueil / Favoris)
+- [x] Lien vidéo
+- [x] Bouton "Recette au hasard"
 
-Join our community of developers creating universal apps.
+## Non fait / pistes d'amélioration
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Filtrage par catégorie (endpoint identifié, pas encore intégré)
+- Thème sombre
+- Animations sur les transitions d'écran
+
+## Difficultés rencontrées
+
+- **Navigation imbriquée (Tab + Stack)** : comprendre comment naviguer vers un écran (`Detail`) qui se trouve dans un `Stack` lui-même imbriqué dans un `Tab` a demandé plusieurs essais. La syntaxe `navigation.navigate('HomeTab', { screen: 'Detail', params: {...} })` n'est pas intuitive au premier abord.
+
+
+- **Typage TypeScript de la navigation** : bien différencier `NativeStackScreenProps` (pour les écrans dans un Stack) et `BottomTabScreenProps` (pour les écrans dans un Tab) selon l'emplacement de l'écran dans l'arborescence.
+
+
+- **Ingrédients de l'API TheMealDB** : les ingrédients sont renvoyés sous forme de 20 champs séparés (`strIngredient1` à `strIngredient20`), il a fallu écrire une fonction utilitaire pour les transformer en tableau exploitable.
+
+
+- **Clés dupliquées dans une `FlatList`** : certains ingrédients identiques (ex: "Sugar") provoquaient une erreur de clé React — résolu en utilisant l'index comme clé.
