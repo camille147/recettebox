@@ -51,7 +51,7 @@ export default function DetailsScreen({route} : Props) {
                     }
 
                 </View>
-                <TouchableOpacity onPress={() => dispatch(toggleFavorite(meal))}>
+                <TouchableOpacity style={styles.favoriteBtn}  onPress={() => dispatch(toggleFavorite(meal))}>
                     <Text style={{ fontSize: 24 }}>{estFavori ? <Ionicons name="heart-circle" size={30} color="red" /> : <Ionicons name="heart-circle-outline" size={30} color="black" />}</Text>
                 </TouchableOpacity>
 
@@ -144,5 +144,20 @@ const styles = StyleSheet.create({
         fontSize: 15,
         lineHeight: 24,
         color: '#333',
+    },
+    favoriteBtn: {
+        position: 'absolute',
+        top: 16,
+        right: 16,
+        backgroundColor: '#fff',
+        borderRadius: 24,
+        width: 48,
+        height: 48,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 4,
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
     },
 })
