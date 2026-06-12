@@ -1,13 +1,14 @@
 import {Image, Text, View, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {RootStackParamList} from "@/src/navigation/AppNavigator";
+import {HomeStackParamList} from "@/src/navigation/AppNavigator";
 import {useGetMealByIdQuery} from "@/src/services/api";
 import {getIngredients} from "@/src/utils/getIngredients";
 import {RootState} from "@/src/app/store";
 import {useSelector, useDispatch} from "react-redux";
 import {toggleFavorite} from "@/src/features/favorites/favoriteSlice";
+import {Ionicons} from "@expo/vector-icons";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Detail'>;
+type Props = NativeStackScreenProps<HomeStackParamList, 'Detail'>;
 
 export default function DetailsScreen({route} : Props) {
 
@@ -51,7 +52,7 @@ export default function DetailsScreen({route} : Props) {
 
                 </View>
                 <TouchableOpacity onPress={() => dispatch(toggleFavorite(meal))}>
-                    <Text style={{ fontSize: 24 }}>{estFavori ? '❤️' : '🤍'}</Text>
+                    <Text style={{ fontSize: 24 }}>{estFavori ? <Ionicons name="heart-circle" size={30} color="red" /> : <Ionicons name="heart-circle-outline" size={30} color="black" />}</Text>
                 </TouchableOpacity>
 
 

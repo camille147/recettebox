@@ -1,12 +1,12 @@
 import {Text, TextInput, StyleSheet, FlatList, View, TouchableOpacity} from "react-native";
 import {useState} from "react";
 import RecipeCard from "@/src/components/RecipeCard";
-import {RootStackParamList} from "@/src/navigation/AppNavigator";
+import {HomeStackParamList} from "@/src/navigation/AppNavigator";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {useGetMealByNameQuery} from '../../services/api'
 import { useDebounce } from "use-debounce";
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type Props = NativeStackScreenProps<HomeStackParamList, 'Home'>;
 
 export default function HomeScreen({navigation}: Props) {
 
@@ -31,10 +31,6 @@ export default function HomeScreen({navigation}: Props) {
                 value={query}
                 onChangeText={setQuery}
             />
-
-            <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
-                <Text style={{ fontSize: 24, marginRight: 16 }}>❤️</Text>
-            </TouchableOpacity>
 
             {data?.meals ?
                 <FlatList
