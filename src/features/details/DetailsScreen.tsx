@@ -107,15 +107,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         fontSize: 12,
     },
-    favoriteBtn: {
-        backgroundColor: '#fff',
-        borderWidth: 1,
-        borderColor: '#e63946',
-        borderRadius: 10,
-        padding: 12,
-        alignItems: 'center',
-        marginBottom: 24,
-    },
     favoriteBtnText: {
         color: '#e63946',
         fontWeight: 'bold',

@@ -1,10 +1,13 @@
 import {NavigationContainer} from "@react-navigation/native";
-import {Text, StyleSheet} from "react-native";
+import {Text, StyleSheet, View} from "react-native";
 import FavoriteScreen from "@/src/features/favorites/FavoriteScreen";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeStack from "@/src/navigation/HomeStack";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import {BottomTabsScreen} from "react-native-screens";
+import HomeScreen from "@/src/features/home/HomeScreen";
+import {FontAwesome5} from "@expo/vector-icons";
 
 export type RootTabParamList = {
     HomeTab: {
@@ -40,7 +43,13 @@ export default function AppNavigator() {
                     ),
                 }}/>
                 <Tab.Screen name="FavoritesTab" component={FavoriteScreen} options={{
-                    title: 'Favoris',
+                    headerShown: true,
+                    title: "Favoris",
+                    headerTitle: () => (
+                        <View style={style.headerContainer}>
+                            <Text style={style.headerText}>Favoris</Text>
+                        </View>
+                    ),
                     tabBarIcon: ({ focused }) => (
                         <Text style={{ fontSize: 20 }}>{focused ? <MaterialCommunityIcons name="notebook-heart" style={style.favoriteHeartRed} size={24} color="red" /> : <MaterialCommunityIcons name="notebook-heart-outline" size={24} color="black" />}</Text>
                     ),
@@ -51,10 +60,19 @@ export default function AppNavigator() {
 }
 
 
-const style = StyleSheet.create(
-    {
+const style = StyleSheet.create({
         favoriteHeartRed: {
             color: '#AD0909'
-        }
+        },
+        headerContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        headerText: {
+            fontSize: 20,
+            fontWeight: 'bold',
+            marginLeft: 10,
+            color: '#333',
+        },
     }
 )
