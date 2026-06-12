@@ -1,4 +1,4 @@
-import {Image, Text, View, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
+import {Image, Text, View, StyleSheet, TouchableOpacity, ScrollView, Linking} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {HomeStackParamList} from "@/src/navigation/AppNavigator";
 import {useGetMealByIdQuery} from "@/src/services/api";
@@ -66,6 +66,15 @@ export default function DetailsScreen({route} : Props) {
 
                 <Text style={styles.sectionTitle}>Instructions</Text>
                 <Text style={styles.instructions}>{meal.strInstructions}</Text>
+
+                {meal.strYoutube ?
+                    <TouchableOpacity
+                        style={styles.videoBtn}
+                        onPress={() => Linking.openURL(meal.strYoutube as string)}
+                    >
+                        <Text style={styles.videoBtnText}> Voir la vidéo</Text>
+                    </TouchableOpacity>
+                 : null}
 
             </View>
         </ScrollView>
@@ -150,5 +159,16 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 0.2,
         shadowRadius: 4,
+    },
+    videoBtn: {
+        backgroundColor: '#e63946',
+        borderRadius: 10,
+        padding: 14,
+        alignItems: 'center',
+        marginTop: 16,
+    },
+    videoBtnText: {
+        color: '#fff',
+        fontWeight: 'bold',
     },
 })

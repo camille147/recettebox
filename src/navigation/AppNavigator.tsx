@@ -5,9 +5,6 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import HomeStack from "@/src/navigation/HomeStack";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import {BottomTabsScreen} from "react-native-screens";
-import HomeScreen from "@/src/features/home/HomeScreen";
-import {FontAwesome5} from "@expo/vector-icons";
 
 export type RootTabParamList = {
     HomeTab: {
